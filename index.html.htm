@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoX - Trading Platform</title>
+    <style>
+        /* Reset some default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: white;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Top Navigation Bar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: #000;
+            border-bottom: 2px solid #ff6600;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 40px;
+            margin-right: 10px;
+        }
+
+        .brand-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff6600;
+        }
+
+        .user-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .account-info {
+            margin-right: 20px;
+        }
+
+        button {
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:hover {
+            background-color: #cc5200;
+        }
+
+        /* Main Trading Dashboard */
+        main {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+
+        .price-chart {
+            flex: 1;
+            margin-right: 20px;
+            min-width: 300px;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            background-color: #222;
+            border: 2px solid #444;
+        }
+
+        .order-book, .market-data, .order-entry, .deposit {
+            flex: 1;
+            background-color: #222;
+            padding: 15px;
+            margin-left: 20px;
+            border: 2px solid #444;
+            min-width: 300px;
+            margin-top: 20px;
+        }
+
+        .order-list .order {
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .buy {
+            background-color: #28a745;
+        }
+
+        .sell {
+            background-color: #dc3545;
+        }
+
+        .order-entry form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .order-entry label, .order-entry input, .order-entry select {
+            margin-bottom: 10px;
+        }
+
+        .order-entry input[type="range"] {
+            width: 100%;
+        }
+
+        button[type="submit"] {
+            margin-top: 20px;
+        }
+
+        /* Wallet Analytics Section */
+        .crypto-analytics {
+            margin-top: 20px;
+            background-color: #333;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .crypto-analytics .bar {
+            height: 5px;
+            background-color: #ff6600;
+            transition: width 0.3s ease;
+        }
+
+        .crypto-analytics .percent {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000;
+            color: #888;
+            padding: 15px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #ff6600;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .logo-container {
+                margin-bottom: 10px;
+            }
+
+            .user-controls {
+                margin-top: 10px;
+            }
+
+            main {
+                flex-direction: column;
+            }
+
+            .order-book, .market-data, .order-entry, .deposit {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+
+            .price-chart {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .crypto-analytics {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="CryptoX Logo" class="logo">
+            <span class="brand-name">CryptoX</span>
+        </div>
+        <div class="user-controls">
+            <span class="account-info">Balance: $5000.00</span>
+            <!-- Button to navigate to profile.htm -->
+            <button class="profile-btn" onclick="window.location.href='profile.htm';">Profile</button>
+            <button class="help-btn">Help</button>
+        </div>
+    </header>
+
+    <!-- Main Trading Dashboard -->
+    <main>
+        <section class="price-chart">
+            <!-- Placeholder for Chart.js or any charting library integration -->
+            <div class="chart-container">
+                <canvas id="price-chart"></canvas>
+            </div>
+        </section>
+
+        <section class="order-book">
+            <h2>Order Book</h2>
+            <div class="order-list">
+                <!-- Example Order Book Data -->
+                <div class="order buy">Buy: 1 BTC at $30,000</div>
+                <div class="order sell">Sell: 0.5 BTC at $31,000</div>
+            </div>
+        </section>
+
+        <section class="market-data">
+            <h2>Market Data</h2>
+            <p>Price Ticker: $30,500</p>
+            <p>Market Depth: 1.5 BTC</p>
+            <p>Bid/Ask: $30,400 / $30,600</p>
+        </section>
+
+        <section class="order-entry">
+            <h2>Place Order</h2>
+            <form>
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" name="amount">
+
+                <label for="price">Price</label>
+                <input type="number" id="price" name="price">
+
+                <label for="order-type">Order Type</label>
+                <select id="order-type" name="order-type">
+                    <option value="market">Market</option>
+                    <option value="limit">Limit</option>
+                </select>
+
+                <label for="leverage">Leverage</label>
+                <input type="range" id="leverage" name="leverage" min="1" max="100" value="1">
+
+                <button type="submit">Place Order</button>
+            </form>
+        </section>
+
+        <!-- Deposit Function -->
+        <section class="deposit">
+            <h2>Deposit Cryptocurrency</h2>
+            <form>
+                <label for="crypto-type">Select Cryptocurrency</label>
+                <select id="crypto-type" name="crypto-type">
+                    <option value="bitcoin">Bitcoin (BTC)</option>
+                    <option value="ethereum">Ethereum (ETH)</option>
+                    <option value="usdt">Tether (USDT)</option>
+                </select>
+
+                <label for="deposit-amount">Amount</label>
+                <input type="number" id="deposit-amount" name="deposit-amount" placeholder="Enter amount to deposit">
+
+                <button type="submit">Deposit</button>
+            </form>
+        </section>
+
+        <!-- Cryptocurrency Analytics Section -->
+        <section class="crypto-analytics">
+            <h2>Crypto Wallet Analytics</h2>
+            <div class="crypto-item">
+                <h3>Bitcoin (BTC)</h3>
+                <p>Total: 1.5 BTC</p>
+                <div class="bar" style="width: 75%"></div>
+                <p class="percent">+5.2% in the last 24 hours</p>
+            </div>
+            <div class="crypto-item">
+                <h3>Ethereum (ETH)</h3>
+                <p>Total: 2.0 ETH</p>
+                <div class="bar" style="width: 40%"></div>
+                <p class="percent">-2.8% in the last 24 hours</p>
+            </div>
+            <div class="crypto-item">
+                <h3>Tether (USDT)</h3>
+                <p>Total: 3,000 USDT</p>
+                <div class="bar" style="width: 20%"></div>
+                <p class="percent">-0.5% in the last 24 hours</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p><a href="#">Terms of Service</a> | <a href="#">Privacy Policy</a></p>
+        <p>Follow us on <a href="#">Twitter</a> | <a href="#">Facebook</a></p>
+    </footer>
+
+    <!-- JavaScript: Chart.js for Price Chart -->
+    <script>
+        // You can integrate Chart.js or another charting library here to display real-time charts
+    </script>
+
+</body>
+</html>
