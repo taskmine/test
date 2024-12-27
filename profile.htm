@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - CryptoX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            padding: 20px;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: #222;
+            padding: 15px;
+            border-radius: 5px;
+            margin-right: 20px;
+            position: fixed;
+            top: 0;
+            left: -250px; /* Initially hidden off-screen */
+            height: 100%;
+            transition: left 0.3s ease-in-out;
+            display: none; /* Sidebar is not displayed initially */
+        }
+
+        .sidebar.open {
+            left: 0; /* Sidebar slides in when open */
+            display: block; /* Sidebar is displayed when open */
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .sidebar a:hover {
+            background-color: #ff6600;
+        }
+
+        .sidebar .logout-btn {
+            margin-top: 20px;
+            background-color: #ff6600;
+            border-radius: 5px;
+            text-align: center;
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Profile Section Styles */
+        .profile-section {
+            margin-left: 260px;
+            background-color: #222;
+            padding: 20px;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-header img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .profile-header h1 {
+            font-size: 24px;
+            color: #ff6600;
+        }
+
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .profile-info div {
+            background-color: #333;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .profile-info h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #ff6600;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #cc5200;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                left: -250px;
+                top: 0;
+                z-index: 1000;
+                width: 100%;
+                height: 100%;
+                padding: 15px;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .profile-section {
+                margin-left: 0;
+            }
+        }
+
+        /* Hamburger and Close Button Styles */
+        #hamburger {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            z-index: 2000;
+        }
+
+        #hamburger span {
+            font-size: 30px;
+            color: white;
+        }
+
+        .close-btn {
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="close-btn" id="close-btn" onclick="toggleSidebar()">&#10005;</div>
+            <a href="#">Dashboard</a>
+            <a href="#">Orders</a>
+            <a href="#">Assets</a>
+            <a href="#">Profile</a>
+            <a href="#">Security</a>
+            <a href="#">API Management</a>
+            <a href="#">Help Center</a>
+            <a href="#" class="logout-btn">Logout</a>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="profile-section">
+            <div class="profile-header">
+                <img src="profile-pic.png" alt="Profile Picture">
+                <h1>Username</h1>
+            </div>
+
+            <div class="profile-info">
+                <div>
+                    <h3>Account Balance</h3>
+                    <p>$5000.00</p>
+                </div>
+                <div>
+                    <h3>Email</h3>
+                    <p>user@example.com</p>
+                </div>
+                <div>
+                    <h3>2FA Status</h3>
+                    <p>Enabled</p>
+                </div>
+                <div>
+                    <h3>Account ID</h3>
+                    <p>123456789</p>
+                </div>
+            </div>
+
+            <div class="profile-actions">
+                <button>Edit Profile</button>
+                <button>Change Password</button>
+                <button>Security Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hamburger Menu Button for Mobile -->
+    <div id="hamburger" onclick="toggleSidebar()">
+        <span>&#9776;</span>
+    </div>
+
+    <!-- JavaScript to handle sidebar toggling -->
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var closeBtn = document.getElementById("close-btn");
+            var hamburger = document.getElementById("hamburger");
+
+            // Toggle the open class for the sidebar
+            sidebar.classList.toggle("open");
+
+            // Toggle visibility of hamburger and close button
+            if (sidebar.classList.contains("open")) {
+                closeBtn.style.display = "block"; // Show close button
+                hamburger.style.display = "none"; // Hide hamburger icon
+            } else {
+                closeBtn.style.display = "none"; // Hide close button
+                hamburger.style.display = "block"; // Show hamburger icon
+            }
+        }
+    </script>
+
+</body>
+
+</html>
